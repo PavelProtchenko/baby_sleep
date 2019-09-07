@@ -1,0 +1,65 @@
+<h1>Posts</h1>
+<span>Total: <b><%= @posts.where(publication: 'published').pluck(:id).count %></b></span>
+
+<div class="form-group search-group">
+  <%= link_to 'Add new post', new_admin_post_path, class: 'btn btn-success' %>
+
+  <div class="input-group">
+    <div class="form-inline">
+      <%= form_tag(admin_posts_path, method: :get) do %>
+        <%= text_field_tag :term, params[:term], placeholder: 'Search ...', class: 'form-control' %>
+        <%= submit_tag 'Search', title: nil, class: 'btn btn-outline-primary' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<ul class="nav nav-pills-custom">
+  <li class="active">
+    <a  href="#1a" data-toggle="tab" class="nav-link-custom">Current posts</a>
+  </li>
+  <li><a href="#2a" data-toggle="tab" class="nav-link-custom">Deleted posts</a>
+  </li>
+</ul>
+
+<div class="tab-content clearfix">
+  <div class="tab-pane active" id="1a">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th>Body</th>
+          <th>Image</th>
+          <th>Position</th>
+          <th>Publication</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="sounds">
+        <% @posts.where(publication: 'published').each do |post| %>
+          <%= content_tag :tr, class: 'post', id: dom_id(post) do %>
+            <td><%= post.id %></td>
+            <td><%= post.title %></td>
+            <td><%= post.body&.truncate(27) %></td>
+            <td><%= link_to (image_tag (post.image_url.icon.url), class: 'image-sound'), post.image_url_url if post.image_url? %></td>
+            <td><%= post.position %></td>
+            <td><%= post.publication %></td>
+            <td>
+              <%= link_to 'Edit', edit_admin_post_path(post), class: 'btn btn-primary btn-sm' %>
+              |
+              <span class="unpublish_post btn btn-warning btn-sm">Unpublish</span>
+              |
+              <span class="delete_post btn btn-danger btn-sm">Hard Delete</span>
+            </td>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @posts.where(publication: 'published'), renderer: 'BootstrapPaginationHelper::LinkRenderer' %>
+  </div>
+  <div class="tab-pane" id="2a">
+    No data
+  </div>
+</div>
+<%#= will_paginate @sounds, renderer: 'BootstrapPaginationHelper::LinkRenderer' %>

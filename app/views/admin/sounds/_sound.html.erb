@@ -1,0 +1,18 @@
+<div class="divTableCell"><%= sound.id %></div>
+<div class="divTableCell"><%= link_to "#{sound.name}", "#{sound.file_url}", target: "_blank" if sound.file_url? %></div>
+<div class="divTableCell"><%= link_to (image_tag (sound.image_url.icon.url), class: 'image-sound sound-pic'), sound.image_url_url if sound.image_url? %></div>
+<div class="divTableCell">
+<% if sound.popular == true %>
+  <i class="fa fa-users" aria-hidden="true"></i>
+<% else %>
+  <i class="fa fa-user-times" aria-hidden></i>
+<% end %>
+</div>
+<div class="divTableCell">
+  <%= link_to 'Edit', edit_admin_sound_path(sound), remote: true, class: 'btn btn-primary btn-sm' %>
+  |
+  <!-- <span class="edit_sound btn btn-second btn-sm">Edit</span> -->
+  <span class="delete_sound btn btn-warning btn-sm">Delete</span>
+  |
+  <span class="hard_sound_delete btn btn-danger btn-sm">Hard Delete</span>
+</div>

@@ -1,0 +1,18 @@
+en:
+  admin:
+    sounds:
+      form:
+        submit:
+          '%{action} sound'
+    mixes:
+      form:
+        submit:
+          '%{action} mix'
+    categories:
+      form:
+        submit:
+          '%{action} category'
+    posts:
+      form:
+        submit:
+          '%{action} post'

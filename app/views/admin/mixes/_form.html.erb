@@ -1,0 +1,65 @@
+<%= form_for [:admin, @mix], html: { multipart: true } do |f| %>
+
+  <div class="well sidebar-nav">
+    <%= label_tag :add_categories %><br />
+    <% hidden_field_tag "mix[category_ids][]", "" %>
+    <% Category.all.each do |category| %>
+      <%= check_box_tag "mix[category_ids][]", category.id,
+        @mix.category_ids.include?(category.id), id: dom_id(category) %>
+      <%= label_tag dom_id(category), category.title %>
+    <% end %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div class="form-group sound">
+    <% if @mix.image_url.present? %>
+      <%= f.label :image_url %>:
+      <%= @mix.image_url %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :duration %>
+    <%= f.number_field :duration %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :position %>
+    <%= f.number_field :position %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :add_sounds %><br />
+    <%= hidden_field_tag "mix[sound_ids][]", nil %>
+    <% Sound.all.each do |sound| %>
+      <%= check_box_tag "mix[sound_ids][]", sound.id,
+          @mix.sound_ids.include?(sound.id), id: dom_id(sound) %>
+      <%= label_tag dom_id(sound), sound.name %>
+    <% end %>
+  </div>
+
+  <hr>
+
+  <div>
+    <%= f.fields_for :sounds, @mix.sounds.each do |sound_m| %>
+      <%= sound_m.object.name %>
+      <%#= sound_m.number_field :mix_volume %>
+      Delete: <%= sound_m.check_box :_destroy %><br><br>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :image_url %>
+    <p><%= image_tag(@mix.image_url.icon.url, class: 'image-sound') if @mix.image_url? %></p>
+    <%= f.file_field :image_url, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit t('.submit', action: @mix.new_record? ? 'Create' : 'Save'), class: 'btn btn-primary' %>
+    <%= link_to t('.common.back'), :back, class: 'btn btn-outline-secondary' %>
+  </div>
+<% end %>

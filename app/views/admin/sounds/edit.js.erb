@@ -1,0 +1,2 @@
+document.querySelector('#<%= dom_id(@sound) %>').insertAdjacentHTML('afterend', "<%= j render(partial: "inline_form", sound: @sound) %>");
+document.querySelector('#<%= dom_id(@sound) %>').style.display = 'none';

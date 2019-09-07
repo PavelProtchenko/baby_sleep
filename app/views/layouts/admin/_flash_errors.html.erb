@@ -1,0 +1,10 @@
+<div class="row">
+  <div class="col-md-12">
+    <% flash.each do |name, message| %>
+      <div class="alert <%= flash_class(name).to_s %>">
+        <a href="#" data-dismiss="alert" class="close">×</a>
+        <%= message %>
+      </div>
+    <% end %>
+  </div>
+</div>

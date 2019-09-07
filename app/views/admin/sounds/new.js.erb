@@ -1,0 +1,6 @@
+var lol = $('#new-sound').parent().html('<%= j render ("inline_form") %>');
+$('#cancel-btn').click(function(e) {
+  e.preventDefault();
+  $(lol).remove();
+  $('.form-group.search-group').append($('#new-sound'));
+});

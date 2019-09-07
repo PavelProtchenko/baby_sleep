@@ -1,0 +1,105 @@
+<h1>Sounds</h1>
+<span>Total: <b><%= Sound.where(deleted: false).includes(:name).count %></b></span>
+
+<div class="form-group search-group">
+  <%= link_to 'Add new sound', new_admin_sound_path, remote: true, class: 'btn btn-success', id: 'new-sound' %>
+
+  <div class="input-group">
+    <div class="form-inline">
+      <%= form_tag(admin_sounds_path, method: :get) do %>
+        <%= text_field_tag :term, params[:term], placeholder: 'Search ...', class: 'form-control' %>
+        <%= submit_tag 'Search', name: nil, class: 'btn btn-outline-primary' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<ul class="nav nav-pills-custom">
+  <%= link_to 'Current sounds', admin_sounds_path, class: 'active nav-link-custom' %>
+  <%= link_to 'Deleted sounds', deleted_sounds_admin_sounds_path, class: 'nav-link-custom' %>
+</ul>
+
+<div class="tab-content clearfix">
+  <div class="tab-pane active" id="1a">
+    <div class="divTable blueTable">
+      <div class="divTableHeading">
+        <div class="divTableRow">
+          <div class="divTableHead">#</div>
+          <div class="divTableHead">Name</div>
+          <div class="divTableHead">Image</div>
+          <div class="divTableHead">Popular / Lock</div>
+          <div class="divTableHead">Actions</div>
+        </div>
+      </div>
+      <div class="divTableBody">
+        <% @sounds.each do |sound| %>
+          <%= content_tag :div, class: 'divTableRow', id: dom_id(sound) do %>
+            <%= render sound %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <%= will_paginate @sounds.where(deleted: false), renderer: 'BootstrapPaginationHelper::LinkRenderer' %>
+  </div>
+</div>
+
+<!--  <div class="tab-content clearfix">
+  <div class="tab-pane active" id="1a">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Image</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="sounds">
+        <% @sounds.each do |sound| %>
+          <%= content_tag :tr, id: dom_id(sound) do %>
+            <td><%= sound.id %></td>
+            <td><%= link_to "#{sound.name}", "#{sound.file_url}", target: "_blank" if sound.file_url? %></td>
+            <td><%= link_to (image_tag (sound.image_url.icon.url), class: 'image-sound'), sound.image_url_url if sound.image_url? %></td>
+            <td>
+              <%= link_to 'Edit', edit_admin_sound_path(sound) %>
+              <%= link_to 'Delete', deleted_status_admin_sound_path(sound), method: :put, data: { confirm: 'Are you sure?' } %>
+              |
+              <%= link_to 'Fucking Hard Delete', admin_sound_path(sound), method: :delete, data: { confirm: 'Are you sure? It can be dangerous 💀' } %>
+            </td>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= will_paginate @sounds.where(deleted: false), renderer: 'BootstrapPaginationHelper::LinkRenderer' %>
+  </div>
+  <div class="tab-pane" id="2a">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Image</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="sounds">
+        <% @deleted_sounds&.each do |sound| %>
+          <tr>
+            <td><%= sound.id %></td>
+            <td><%= link_to "#{sound.name}", "#{sound.file_url}", target: "_blank" if sound.file_url? %></td>
+            <td><%= link_to (image_tag (sound.image_url.icon.url), class: 'image-sound'), sound.image_url_url if sound.image_url? %></td>
+            <td>
+              <%= link_to 'Edit', edit_admin_sound_path(sound) %>
+              <%#= link_to 'Regenerate', regenerated_status_admin_sound_path(sound), method: :put, data: { confirm: 'Are you sure?' } %>
+              |
+              <%#= link_to 'Fucking Hard Delete', admin_sound_path(sound), method: :delete, data: { confirm: 'Are you sure? It can be dangerous 💀' } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%#= will_paginate @sounds.where(deleted: true), renderer: 'BootstrapPaginationHelper::LinkRenderer' %>
+  </div>
+</div> -->

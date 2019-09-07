@@ -1,0 +1,79 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require trix
+ *= require_tree .
+ *= require_self
+ */
+
+@import 'bootstrap';
+@import 'bootstrap-datepicker';
+@import 'font-awesome';
+
+@import './search_form.scss';
+@import './pagination.scss';
+@import './sound_view.scss';
+@import './trix_editor_customization.scss';
+
+// Navbar
+.nav {
+  background-color: #1bc47d;
+  border-radius: 0 0 20px 20px;
+  margin-bottom: 1rem;
+}
+
+.nav-li a {
+  margin: 0 15px 0 0;
+  text-decoration: none;
+  color: #000;
+}
+
+.nav-li a:hover {
+  cursor: pointer;
+  color: #fff;
+}
+
+.logo-navbar {
+  color: #40e0d0;
+  transform: rotate(0deg);
+}
+
+.content-container {
+  width: 100%;
+  overflow: scroll;
+}
+
+// Tabs
+.nav-pills-custom {
+  background-color: #40e0d0;
+  font-size: 20px;
+  border-radius: 0;
+  margin-bottom: auto;
+  justify-content: space-evenly;
+}
+
+.nav-link-custom:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* remove border radius for the tab */
+
+#exTab1 .nav-pills > li > a {
+  border-radius: 0;
+}
+
+/* change border radius for the tab , apply corners on top*/
+
+#exTab3 .nav-pills > li > a {
+  border-radius: 4px 4px 0 0 ;
+}

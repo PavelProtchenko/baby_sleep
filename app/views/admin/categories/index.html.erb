@@ -1,0 +1,91 @@
+<h1>Categories</h1>
+<span>Total amount of sounds in categories: <b><%= CategorySound.pluck(:sound_id).count %></b></span>
+
+<div class="form-group">
+  <%= link_to 'Add new category', new_admin_category_path, class: 'btn btn-success' %>
+</div>
+
+<ul class="nav nav-pills-custom">
+  <li class="active">
+    <a  href="#1a" data-toggle="tab" class="nav-link-custom">Current categories</a>
+  </li>
+  <li><a href="#2a" data-toggle="tab" class="nav-link-custom">Deleted categories</a>
+  </li>
+</ul>
+
+<div class="tab-content clearfix">
+  <div class="tab-pane active" id="1a">
+      <table class="table">
+      <thead>
+        <tr>
+          <th colspan="7" class="cat-title">No category type</th>
+          <tr>
+            <th># / Amount of sounds</th>
+            <th>Title</th>
+            <th>Subtitle</th>
+            <th>Position</th>
+            <th>Onboarding</th>
+            <th>Default sounds title</th>
+            <th>Actions</th>
+          </tr>
+        </tr>
+      </thead>
+      <tbody>
+        <% @categories.where(deleted: false).each do |category| %>
+          <tr>
+            <td><%= category.id %>
+                |
+                <%= category.sound_ids.count %>
+            </td>
+            <td><%= category.title %></td>
+            <td><%= category.subtitle %></td>
+            <td><%= category.position %></td>
+            <td><%= category.onboarding %></td>
+            <td><%= category.default_sounds_title %></td>
+            <td>
+              <%= link_to 'Edit', edit_admin_category_path(category) %>
+              |
+              <%= link_to 'Delete', deleted_status_admin_category_path(category), method: :put, data: { confirm: 'Are you sure?' } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="tab-pane" id="2a">
+    <table class="table">
+      <thead>
+        <tr>
+          <th colspan="7" class="cat-title">No category type</th>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Subtitle</th>
+            <th>Position</th>
+            <th>Onboarding</th>
+            <th>Default sounds title</th>
+            <th>Actions</th>
+          </tr>
+        </tr>
+      </thead>
+      <tbody>
+        <% @categories.where(deleted: true).each do |category| %>
+          <tr>
+            <td><%= category.id %></td>
+            <td><%= category.title %></td>
+            <td><%= category.subtitle %></td>
+            <td><%= category.position %></td>
+            <td><%= category.onboarding %></td>
+            <td><%= category.default_sounds_title %></td>
+            <td>
+              <%#= link_to 'Edit', edit_admin_category_path(category) %>
+              <%= link_to 'Regenerate', regenerated_status_admin_category_path(category), class: 'btn btn-success btn-sm', method: :put, data: { confirm: 'Are you sure?' } %>
+              |
+              <%= link_to 'Hard delete', admin_category_path(category), class: 'btn btn-danger btn-sm', method: :delete, data: { confirm: 'Are you sure? It can be dangerous 💀' } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

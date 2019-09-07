@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title><%= full_title(yield(:title)) %></title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <%= csrf_meta_tags %>
+    <%= action_cable_meta_tag %>
+    <%= stylesheet_link_tag    'admin', media: 'all', 'data-turbolinks-track': true %>
+    <%= javascript_include_tag 'admin', 'data-turbolinks-track': true %>
+
+  </head>
+
+  <body>
+    <%= render 'layouts/admin/header' %>
+    <%= render 'layouts/admin/navbar' %>
+
+    <div class="container">
+    <%= render 'layouts/admin/flash_errors' %>
+      <div class="content-container">
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>

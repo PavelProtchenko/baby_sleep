@@ -1,0 +1,63 @@
+<%= form_for [:admin, @category] do |f| %>
+  <div class="well sidebar-nav">
+    <%= label_tag :sounds %><br />
+    <% hidden_field_tag "category[sound_ids][]", "" %>
+    <% Sound.where(deleted: false).each do |sound| %>
+      <%= check_box_tag "category[sound_ids][]", sound.id,
+        @category.sound_ids.include?(sound.id), id: dom_id(sound) %>
+      <%= label_tag dom_id(sound), sound.name %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :subtitle %>
+    <%= f.text_field :subtitle, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :position %>
+    <%= f.number_field :position, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :onboarding %>
+    <%= f.check_box :onboarding %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :default_sounds_title %>
+    <%= f.check_box :default_sounds_title %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :image_url %>
+    <p><%= image_tag(@category.image_url.thumb.url, class: 'image-sound') if @category.image_url? %></p>
+    <%= f.file_field :image_url, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :main_image_url %>
+    <p><%= image_tag(@category.main_image_url.thumb.url, class: 'image-sound') if @category.main_image_url? %></p>
+    <%= f.file_field :main_image_url, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.fields_for :category_sounds, @category.category_sounds.each do |cs| %>
+      <%= cs.object.sound.name %>
+      <%= label_tag 'Lock' %>
+      <%= cs.check_box :lock %>
+      <%= cs.number_field :position %>
+      Delete: <%= cs.check_box :_destroy %><br><br>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit t('.submit', action: @category.new_record? ? 'Create' : 'Save'), class: 'btn btn-primary' %>
+    <%= link_to t('.common.back'), :back, class: 'btn btn-outline-secondary' %>
+  </div>
+<% end %>

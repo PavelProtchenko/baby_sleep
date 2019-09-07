@@ -1,0 +1,28 @@
+<%= form_with model: [:admin, @sound], class: 'divTableRow', id: dom_id(@sound, 'inline_form') do |form| %>
+  <% if @sound.try(:id) %>
+    <div class="divTableCell">
+      <%= form.label @sound.id %>
+    </div>
+  <% end %>
+
+  <div class="divTableCell">
+    <%= form.text_field :name %>
+    <%= form.label 'Sound file' %>
+    <%= form.file_field :file_url %>
+  </div>
+
+  <div class="divTableCell">
+    <!-- <p><%#= image_tag(@sound.image_url.icon.url, class: 'image-sound') if @sound.image_url? %></p> -->
+    <%= form.file_field :image_url %>
+  </div>
+
+  <div class="divTableCell">
+    <%= form.check_box :popular %>
+  </div>
+
+  <div class="divTableCell">
+    <%= form.submit class: 'btn btn-success btn-sm' %>
+    |
+    <%#= form.submit 'Cancel', class: 'btn btn-sm', id: 'cancel-btn' %>
+  </div>
+<% end %>

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  appsflyer_id: MyString
+  receipt: MyString
+  store: MyString
+  event_key: MyString
+
+two:
+  appsflyer_id: MyString
+  receipt: MyString
+  store: MyString
+  event_key: MyString

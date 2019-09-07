@@ -1,0 +1,36 @@
+<%= form_for [:admin, @sound], html: { multipart: true } do |f| %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div class="form-group sound">
+    <% if @sound.image_url.present? %>
+      <%= f.label :image_url %>:
+      <%= @sound.image_url %>
+    <% end %>
+  </div>
+
+  <div class="form-group sound">
+    <% if @sound.file_url.present? %>
+      <%= f.label :file_url %>:
+      <%= @sound.file_url %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :image_url  %>
+    <p><%= image_tag(@sound.image_url.icon.url, class: 'image-sound') if @sound.image_url? %></p>
+    <%= f.file_field :image_url, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :file_url %>
+    <%= f.file_field :file_url, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit t('.submit', action: @sound.new_record? ? 'Create' : 'Save'), class: 'btn btn-primary' %>
+    <%= link_to t('.common.back'), :back, class: 'btn btn-outline-secondary' %>
+  </div>
+<% end %>

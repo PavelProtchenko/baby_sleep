@@ -1,0 +1,51 @@
+<h1>Deleted sounds</h1>
+
+<ul class="nav nav-pills-custom">
+  <%= link_to 'Current sounds', admin_sounds_path, class: 'active nav-link-custom' %>
+  <!-- <li class="active">
+    <a  href="#1a" data-toggle="tab" class="nav-link-custom">Current sounds</a>
+  </li> -->
+  <%= link_to 'Deleted sounds', deleted_sounds_admin_sounds_path, class: 'nav-link-custom' %>
+  <%# <li><a href="#2a" data-toggle="tab" class="nav-link-custom">Deleted sounds</a> %>
+  </li>
+</ul>
+<div class="tab-pane" id="2a">
+  <div class="divTable blueTable">
+    <div class="divTableHeading">
+      <div class="divTableRow">
+        <div class="divTableHead">#</div>
+        <div class="divTableHead">Name</div>
+        <div class="divTableHead">Image</div>
+        <div class="divTableHead">Popular / Lock</div>
+        <div class="divTableHead">Actions</div>
+      </div>
+    </div>
+    <div class="divTableBody">
+      <% @deleted_sounds.each do |sound| %>
+        <%= content_tag :div, class: 'divTableRow', id: dom_id(sound) do %>
+          <div class="divTableCell"><%= sound.id %></div>
+          <div class="divTableCell"><%= link_to "#{sound.name}", "#{sound.file_url}", target: "_blank" if sound.file_url? %></div>
+          <div class="divTableCell"><%= link_to (image_tag (sound.image_url.icon.url), class: 'image-sound sound-pic'), sound.image_url_url if sound.image_url? %></div>
+          <div class="divTableCell">
+          <% if sound.popular == true %>
+            <i class="fa fa-users" aria-hidden="true"></i>
+          <% else %>
+            <i class="fa fa-user-times" aria-hidden></i>
+          <% end %>
+          |
+          <% if sound.lock == true %>
+            <i class="fa fa-lock" aria-hidden="true"></i>
+          <% else %>
+            <i class="fa fa-unlock" aria-hidden="true"></i>
+          <% end %>
+          </div>
+          <div class="divTableCell">
+            <%= link_to 'Regenerate', regenerated_status_admin_sound_path(sound), method: :put, data: { confirm: 'Are you sure?' }, remote: true, class: 'btn btn-success btn-sm' %>
+            |
+            <span class="hard_sound_delete btn btn-danger btn-sm">Hard Delete</span>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

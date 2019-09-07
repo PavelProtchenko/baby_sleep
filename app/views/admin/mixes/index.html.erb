@@ -1,0 +1,43 @@
+<h1>Mixes</h1>
+
+<div class="form-group search-group">
+  <%= link_to 'Add new mix', new_admin_mix_path, class: 'btn btn-success' %>
+
+  <div class="input-group">
+    <div class="form-inline">
+      <%= form_tag(admin_mixes_path, method: :get) do %>
+        <%= text_field_tag :term, params[:term], placeholder: 'Search ...', class: 'form-control' %>
+        <%= submit_tag 'Search', name: nil, class: 'btn btn-outline-primary' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Image url</th>
+      <th>Duration</th>
+      <th>Position</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @mixes.each do |mix| %>
+      <tr>
+        <td><%= mix.id %></td>
+        <td><%= mix.name %></td>
+        <td><%= link_to (image_tag (mix.image_url.icon.url), class: 'image-sound'), mix.image_url_url if mix.image_url? %></td>
+        <td><%= mix.duration %></td>
+        <td><%= mix.position %></td>
+        <td>
+          <%= link_to 'Edit', edit_admin_mix_path(mix) %>
+          |
+          <%= link_to 'Hard delete', admin_mix_path(mix), method: :delete, data: { confirm: 'Are you sure? It can be dangerous 💀' }  %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
