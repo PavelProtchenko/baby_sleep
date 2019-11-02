@@ -21,7 +21,7 @@ gem 'httparty'
 gem 'awesome_print'
 
 # Auth
-gem 'devise', '~> 4.4'
+gem 'devise', '~> 4.7'
 
 # Front-end
 gem 'bootstrap', '~> 4.0.0'
