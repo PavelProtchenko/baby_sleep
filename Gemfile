@@ -66,7 +66,7 @@ group :production do
   # AWS adapter for CarrierWave
   gem 'fog-aws', '~> 1.2'
   gem 'redis-rails', '~> 5.0.2'
-  gem 'sidekiq', '~> 5.1.3'
+  gem 'sidekiq', '~> 5.2.0'
   gem 'whenever'
 end
 
